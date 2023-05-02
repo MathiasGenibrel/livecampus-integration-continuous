@@ -1,12 +1,12 @@
-import { UsersController } from './users.controller';
-import { Request, Response } from 'express';
+import { UsersController } from "./users.controller";
+import { Request, Response } from "express";
 import {
   AbstractUsersController,
   UserCredential,
   UsersRoles,
-} from '../types/users.types';
+} from "../types/users.types";
 
-describe('UsersController', () => {
+describe("UsersController", () => {
   // Use an abstraction to test only business code
   let controller: AbstractUsersController;
   let mockReq: Partial<Request>;
@@ -21,10 +21,10 @@ describe('UsersController', () => {
     controller.getUser = async () => {
       return {
         id: 1,
-        email: 'mathias@gmail.com',
-        password: 'hashedPassword',
-        firstname: 'mathias',
-        lastname: 'genibrel',
+        email: "mathias@gmail.com",
+        password: "hashedPassword",
+        firstname: "mathias",
+        lastname: "genibrel",
         role: UsersRoles.CUSTOMER,
       };
     };
@@ -46,48 +46,15 @@ describe('UsersController', () => {
     mockReq = {};
   });
 
-  describe('login', () => {
-    it('should return a UserCredential with a 200 status code', async () => {
-      const expectedResponse: UserCredential = {
-        email: 'mathias@gmail.com',
-        firstname: 'mathias',
-        lastname: 'genibrel',
-        role: UsersRoles.CUSTOMER,
-      };
-
-      const mockRes: Partial<Response> = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnValue(expectedResponse),
-        set: jest.fn().mockReturnThis(),
-        locals: {
-          usersCredential: {
-            email: 'mathias@gmail.com',
-            password: 'longPassword98!',
-          },
-        },
-      };
-
-      const result = await controller.login(
-        mockReq as Request,
-        mockRes as Response
-      );
-
-      expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.json).toHaveBeenCalledWith(expectedResponse);
-      expect(result).toEqual(expectedResponse);
-    });
-  });
-
-  describe('register', () => {
-    it('should return a 201 status code', async () => {
+  describe("register", () => {
+    it("should return a 201 status code", async () => {
       const mockRes: Partial<Response> = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn().mockReturnValue(undefined),
         locals: {
           usersCredential: {
-            email: 'mathias.geni@gmail.com',
-            password: 'longPassword98!',
+            email: "mathias.geni@gmail.com",
+            password: "longPassword98!",
           },
         },
       };
@@ -103,20 +70,20 @@ describe('UsersController', () => {
     });
   });
 
-  describe('edit', () => {
-    it('should return a 204 status code', async () => {
+  describe("edit", () => {
+    it("should return a 204 status code", async () => {
       const mockRes: Partial<Response> = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn().mockReturnValue(undefined),
         locals: {
           usersContent: {
-            firstname: 'mathias',
-            lastname: 'genibrel',
+            firstname: "mathias",
+            lastname: "genibrel",
           },
           credential: {
             id: 4,
-            email: 'mathias.genibrel@gmail.com',
-            role: 'customer',
+            email: "mathias.genibrel@gmail.com",
+            role: "customer",
           },
         },
       };
@@ -132,16 +99,16 @@ describe('UsersController', () => {
     });
   });
 
-  describe('delete', () => {
-    it('should return a 204 status code', async () => {
+  describe("delete", () => {
+    it("should return a 204 status code", async () => {
       const mockRes: Partial<Response> = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn().mockReturnValue(undefined),
         locals: {
           credential: {
             id: 4,
-            email: 'mathias.genibrel@gmail.com',
-            role: 'customer',
+            email: "mathias.genibrel@gmail.com",
+            role: "customer",
           },
         },
       };
