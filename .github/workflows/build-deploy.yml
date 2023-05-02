@@ -25,6 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Installation de Nx avec la même version que celle utilisé lors du développement.
+      - name: Install nx
+        run: npm install nx@15.7.2
+
       # Lancement des test sur notre applications Front
       - name: Test Web-App Application
         run: nx run-many --targets=test --all --no-cache
