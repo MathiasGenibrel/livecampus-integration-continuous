@@ -25,14 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Installation de Nx avec la même version que celle utilisé lors du développement.
-      - name: Install nx
-        run: npm install nx@15.7.2
-
       # Lancement des test sur notre applications Front
       - name: Test Web-App Application
-        run: nx run-many --targets=test --all --no-cache
+        run: npx nx run-many --targets=test --all --no-cache
 
       # Construction de nos application avec Nx (Monorepo)
       - name: Build Web-App Application
-        run: nx run-many --targets=build --prod --no-cache
+        run: npx nx run-many --targets=build --prod --no-cache
