@@ -27,8 +27,8 @@ jobs:
 
       # Lancement des test sur notre applications Front
       - name: Test Web-App Application
-        run: npx nx run-many --targets=test --all --no-cache
+        run: nx affected --target=test --all --parallel --max-parallel=3 --ci --code-coverage
 
       # Construction de nos application avec Nx (Monorepo)
       - name: Build Web-App Application
-        run: npx nx run-many --targets=build --prod --no-cache
+        run: nx affected --target=build --all --parallel --max-parallel=3 --ci --code-coverage
