@@ -76,9 +76,9 @@ jobs:
       - name: Copy built apps to OVH server
         uses: Burnett01/rsync-deployments@5.2.1
         with:
-          switches: -avzr --delete
+          switches: -avzr --update
           path: orchestration-apps/*
-          remote_path: ./integration-continuous/orchestration/
+          remote_path: ./integration-continuous/
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_user: ${{ secrets.DEPLOY_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY }}

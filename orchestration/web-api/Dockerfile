@@ -16,13 +16,13 @@ RUN npm install -g npm
 USER node
 
 # Copy package.json and package-lock.json
-COPY --chown=node:node ../web-api/package*.json ./
+COPY --chown=node:node ./package*.json ./
 
 # Install app dependencies
 RUN npm install && npm cache clean --force --loglevel=error
 
 # Copy app source code
-COPY --chown=node:node ../web-api/main.js .
+COPY --chown=node:node ./main.js .
 
 # Copy app source code
 CMD ["node", "main.js"]
