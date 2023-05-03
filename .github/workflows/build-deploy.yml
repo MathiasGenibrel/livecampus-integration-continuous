@@ -38,9 +38,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: built-apps
-          path: |
-            dist/packages/apps/*
-            orchestration/
+          path: dist/packages/apps/
+
+      # On utilise des artefacts pour stocker les orchestrations des applications
+      - name: Save built apps on Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: orchestration-apps
+          path: orchestration/
 
   deploy:
     # On dépend du job "build" pour récupérer les artefacts
@@ -61,7 +66,9 @@ jobs:
         uses: Burnett01/rsync-deployments@5.2.1
         with:
           switches: -avzr --delete
-          path: built-apps/
+          path: |
+            built-apps/
+            orchestration-apps/
           remote_path: ${{ secrets.DEPLOY_PATH }}
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_user: ${{ secrets.DEPLOY_USER }}
