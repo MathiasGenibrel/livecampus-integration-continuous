@@ -1,4 +1,4 @@
-name: "Build and Deploy"
+name: 'Build and Deploy'
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # On aurais pu utiliser une strategy pour testé différentes version de NodeJS
+    # On aurait pu utiliser une strategy pour tester différentes versions de NodeJS
 
     steps:
       # Vérification du contenu du commit.
@@ -21,14 +21,59 @@ jobs:
         with:
           node-version: 18.x
 
-      # Installation des dépendences.
+      # Installation des dépendances.
       - name: Install dependencies
         run: npm ci
 
-      # Lancement des test sur notre applications Front
+      # Lancement des tests sur notre application Front
       - name: Test Web-App Application
         run: npx nx affected --target=test --all --parallel --max-parallel=3 --ci --code-coverage
 
-      # Construction de nos application avec Nx (Monorepo)
+      # Construction de nos applications avec Nx (Monorepo)
       - name: Build Web-App Application
         run: npx nx affected --target=build --all --parallel --max-parallel=3 --ci --code-coverage
+
+      # On utilise des artefacts pour stocker les applications construites
+      - name: Save built apps on Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-apps
+          path: dist/packages/
+
+  deploy:
+    # On dépend du job "build" pour récupérer les artefacts
+    needs: [build]
+    trigger: manual
+    runs-on: ubuntu-latest
+
+    steps:
+      # On récupère les artefacts
+      - name: Get Artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: ./
+
+          # TODO: Ajouter le Dockerfile dans la web app
+          # TODO: Changer le chemin de déploiement
+
+      # On déploie les applications sur notre serveur OVH
+      - name: Copy built apps to OVH server
+        uses: Burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avzr --delete
+          path: built-apps/
+          remote_path: ${{ secrets.DEPLOY_PATH }}
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy to OVH server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          # TODO: Changer les scripts de démarrage de l'app
+          script: |
+            whoami
+            ls -la
