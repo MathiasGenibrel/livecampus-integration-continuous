@@ -43,7 +43,6 @@ jobs:
   deploy:
     # On dépend du job "build" pour récupérer les artefacts
     needs: [build]
-    trigger: manual
     runs-on: ubuntu-latest
 
     steps:
@@ -53,8 +52,7 @@ jobs:
         with:
           path: ./
 
-          # TODO: Ajouter le Dockerfile dans la web app
-          # TODO: Changer le chemin de déploiement
+      # TODO: Ajouter le Dockerfile dans la web app
 
       # On déploie les applications sur notre serveur OVH
       - name: Copy built apps to OVH server
