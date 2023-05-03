@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: orchestration-apps
-          path: orchestration/
+          path: orchestration/*
 
   deploy:
     # On dépend du job "build" pour récupérer les artefacts
