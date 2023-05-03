@@ -3,7 +3,7 @@
   "npmScope": "ecommerce-apps",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "NzkyMDJjYWMtZTYzYS00ZjY3LWFiYTMtOTQzN2U4YmU0ZmZlfHJlYWQtd3JpdGU="
@@ -45,7 +45,7 @@
     "libsDir": "packages"
   },
   "generators": {
-    "@nrwl/react": {
+    "@nx/react": {
       "application": {
         "style": "scss",
         "linter": "eslint",
