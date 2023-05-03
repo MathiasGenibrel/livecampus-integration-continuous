@@ -14,14 +14,7 @@
         "tsConfig": "packages/apps/web-api/tsconfig.app.json",
         "thirdParty": false,
         "generatePackageJson": true,
-        "assets": [
-          "packages/apps/web-api/src/assets",
-          {
-            "glob": "Dockerfile",
-            "input": "packages/apps/web-api",
-            "output": "/"
-          }
-        ],
+        "assets": ["packages/apps/web-api/src/assets"],
         "esbuildOptions": {
           "sourcemap": true,
           "external": ["aws-sdk", "nock", "mock-aws-s3"],
