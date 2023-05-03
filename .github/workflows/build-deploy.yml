@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: built-apps
-          path: dist/packages/
+          path: dist/packages/apps/
 
   deploy:
     # On dépend du job "build" pour récupérer les artefacts
