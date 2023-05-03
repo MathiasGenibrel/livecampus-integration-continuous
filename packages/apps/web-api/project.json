@@ -12,7 +12,16 @@
         "format": ["cjs"],
         "main": "packages/apps/web-api/src/main.ts",
         "tsConfig": "packages/apps/web-api/tsconfig.app.json",
-        "assets": ["packages/apps/web-api/src/assets"],
+        "thirdParty": false,
+        "generatePackageJson": true,
+        "assets": [
+          "packages/apps/web-api/src/assets",
+          {
+            "glob": "Dockerfile",
+            "input": "packages/apps/web-api",
+            "output": "/"
+          }
+        ],
         "esbuildOptions": {
           "sourcemap": true,
           "external": ["aws-sdk", "nock", "mock-aws-s3"],
