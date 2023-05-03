@@ -59,8 +59,6 @@ jobs:
         with:
           path: ./
 
-      # TODO: Ajouter le Dockerfile dans la web app
-
       # On déploie les applications sur notre serveur OVH
       - name: Copy built apps to OVH server
         uses: Burnett01/rsync-deployments@5.2.1
@@ -89,7 +87,6 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          # TODO: Changer les scripts de démarrage de l'app
           script: |
-            whoami
-            ls -la
+            cd /integration-continuous
+            sudo docker-compose up -d
