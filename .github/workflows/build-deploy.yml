@@ -89,4 +89,4 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd /integration-continuous
-            sudo docker-compose up -d
+            sudo docker compose up -d
