@@ -39,7 +39,7 @@ jobs:
         with:
           name: built-apps
           path: |
-            dist/packages/apps/
+            dist/packages/apps/*
             orchestration/
 
   deploy:
